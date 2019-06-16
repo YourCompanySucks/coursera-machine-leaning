@@ -18,8 +18,8 @@ for iter = 1:num_iters
     %
 
     
-    derivate = (X * theta - y)' * X
-    theta = theta - (alpha * derivate' / m)
+    derivative = (X * theta - y)' * X
+    theta = theta - (alpha * derivative' / m)
 
 
     % ============================================================
