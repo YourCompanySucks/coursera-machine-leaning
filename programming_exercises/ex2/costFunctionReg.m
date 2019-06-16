@@ -20,11 +20,11 @@ grad = zeros(size(theta));
 
 hypothesis = sigmoid(X * theta);
 
-zero_theta = [0; theta(2:end, :)];
+theta(1,:) = 0
 
-grad = (X' * (hypothesis - y) + (lambda * zero_theta)) / m;
+grad = (X' * (hypothesis - y) + (lambda * theta)) / m;
 
-J = ((-y' * log(hypothesis) - (1 - y)' * log(1 - hypothesis)) / m) + ((zero_theta' * zero_theta) * (lambda / (2*m)));
+J = ((-y' * log(hypothesis) - (1 - y)' * log(1 - hypothesis)) / m) + ((theta' * theta) * (lambda / (2*m)));
 
 
 % =============================================================
