@@ -41,9 +41,9 @@ hypothesis = sigmoid(X * theta);
 
 theta(1,:) = 0
 
-grad = (X' * (hypothesis - y) + (lambda * theta)) / m;
-
 J = ((-y' * log(hypothesis) - (1 - y)' * log(1 - hypothesis)) / m) + ((theta' * theta) * (lambda / (2*m)));
+
+grad = (X' * (hypothesis - y) + (lambda * theta)) / m;
 
 
 % =============================================================

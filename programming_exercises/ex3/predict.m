@@ -25,14 +25,10 @@ p = zeros(size(X, 1), 1);
 X_b = [ones(size(X, 1), 1) X];
 
 a2 = X_b * Theta1';
-a2_b = [ones(size(a2, 1), 1) a2];
+a2_b = [ones(size(a2, 1), 1) sigmoid(a2)];
 a3 = a2_b * Theta2';
-[pv, p] = max(a3, [], 2);
 
-%a2 = Theta1 * X_b';
-%a2_x=[ones(1, size(a2,2)); a2];
-%a3 = Theta2 * a2_x;
-%p = max(a3', [], 2);
+[pv, p] = max(a3, [], 2);
 
 % =========================================================================
 
