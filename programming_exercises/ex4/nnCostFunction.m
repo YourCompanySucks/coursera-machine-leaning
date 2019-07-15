@@ -64,19 +64,29 @@ Theta2_grad = zeros(size(Theta2));
 
 
 
+a1 = [ones(size(X, 1), 1) X];
 
+z2 = a1 * Theta1';
+g2 = sigmoid(z2);
+a2 = [ones(size(z2, 1), 1) g2];
 
+z3 = a2 * Theta2';
+h_x = a3 = g3 = sigmoid(z3);
 
+% [h_x_max, h_x_i] = max(a3, [], 2);
+% h_x_onehot = h_x_i == 1:max(h_x_i);
+y_onehot = y == 1:num_labels;
 
+% J = mean(double(h_x == y)) * 100;
 
+rr = zeros(1, 10);
+for i = 1:num_labels
+	%temp_y = (y == i);
 
+	rr(i) = (-y_onehot' * log(h_x)) - ((1 - y_onehot') * log(1 - h_x));
+end
 
-
-
-
-
-
-
+J = sum(rr)
 
 
 
