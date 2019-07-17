@@ -92,6 +92,14 @@ reg_theta2_term = sum(sum(reg_theta2.^2))
 reg_term = lambda * (reg_theta1_term + reg_theta2_term) / (2 * m)
 
 
+% Backpropagation (Delta term)
+delta3 = a3 - y_onehot;
+g_prime = sigmoidGradient(z2);
+g_prime_w_b = [ones(size(g_prime, 1), 1) g_prime];
+delta2 = (delta3 * Theta2) .* g_prime_w_b;
+delta2_only_val = delta2(:,2:end);
+
+
 % J defenition
 J = cost_function + reg_term
 
