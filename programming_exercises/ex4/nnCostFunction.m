@@ -82,22 +82,25 @@ cost_function = J_sum_for_m / m;
 
 
 % Regularization
-reg_theta1 = Theta1
-reg_theta1(:, 1) = 0
-reg_theta1_term = sum(sum(reg_theta1.^2))
+reg_theta1 = Theta1;
+reg_theta1(:, 1) = 0;
+reg_theta1_term = sum(sum(reg_theta1.^2));
 
-reg_theta2 = Theta2
-reg_theta2(:, 1) = 0
-reg_theta2_term = sum(sum(reg_theta2.^2))
-reg_term = lambda * (reg_theta1_term + reg_theta2_term) / (2 * m)
+reg_theta2 = Theta2;
+reg_theta2(:, 1) = 0;
+reg_theta2_term = sum(sum(reg_theta2.^2));
+reg_term = lambda * (reg_theta1_term + reg_theta2_term) / (2 * m);
 
 
 % Backpropagation (Delta term)
 delta3 = a3 - y_onehot;
-g_prime = sigmoidGradient(z2);
-g_prime_w_b = [ones(size(g_prime, 1), 1) g_prime];
-delta2 = (delta3 * Theta2) .* g_prime_w_b;
+g2_prm = sigmoidGradient(z2);
+g2_prm_w_b = [ones(size(g2_prm, 1), 1) g2_prm];
+delta2 = (delta3 * Theta2) .* g2_prm_w_b;
 delta2_only_val = delta2(:,2:end);
+
+Theta2_grad = (delta3' * a2)' / m;
+Theta1_grad = (delta2_only_val' * a1) / m;
 
 
 % J defenition
