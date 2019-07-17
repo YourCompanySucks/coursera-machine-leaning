@@ -63,7 +63,7 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
-
+% Cost function calculation
 a1 = [ones(size(X, 1), 1) X];
 
 z2 = a1 * Theta1';
@@ -73,21 +73,35 @@ a2 = [ones(size(z2, 1), 1) g2];
 z3 = a2 * Theta2';
 h_x = a3 = g3 = sigmoid(z3);
 
-% [h_x_max, h_x_i] = max(a3, [], 2);
-% h_x_onehot = h_x_i == 1:max(h_x_i);
 y_onehot = y == 1:num_labels;
 
-% J = mean(double(h_x == y)) * 100;
+J_inner_calc = (-y_onehot .* log(h_x)) - ((1 - y_onehot) .* log(1 - h_x));
+J_sum_for_k = sum(J_inner_calc);
+J_sum_for_m = sum(J_sum_for_k);
+cost_function = J_sum_for_m / m;
 
-rr = zeros(1, 10);
-for i = 1:num_labels
-	%temp_y = (y == i);
 
-	rr(i) = (-y_onehot' * log(h_x)) - ((1 - y_onehot') * log(1 - h_x));
-end
+% Regularization
+reg_theta1 = Theta1
+reg_theta1(:, 1) = 0
+reg_theta1_term = sum(sum(reg_theta1.^2))
 
-J = sum(rr)
+reg_theta2 = Theta2
+reg_theta2(:, 1) = 0
+reg_theta2_term = sum(sum(reg_theta2.^2))
+reg_term = lambda * (reg_theta1_term + reg_theta2_term) / (2 * m)
 
+
+% Backpropagation (Delta term)
+delta3 = a3 - y_onehot;
+g_prime = sigmoidGradient(z2);
+g_prime_w_b = [ones(size(g_prime, 1), 1) g_prime];
+delta2 = (delta3 * Theta2) .* g_prime_w_b;
+delta2_only_val = delta2(:,2:end);
+
+
+% J defenition
+J = cost_function + reg_term
 
 
 % -------------------------------------------------------------
