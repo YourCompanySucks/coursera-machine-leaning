@@ -99,8 +99,15 @@ g2_prm_w_b = [ones(size(g2_prm, 1), 1) g2_prm];
 delta2 = (delta3 * Theta2) .* g2_prm_w_b;
 delta2_only_val = delta2(:,2:end);
 
-Theta2_grad = (delta3' * a2)' / m;
-Theta1_grad = (delta2_only_val' * a1) / m;
+reg_grad_theta2 = Theta2;
+reg_grad_theta2(:, 1) = 0;
+reg_grad_theta2 = reg_grad_theta2 * lambda / m
+reg_grad_theta1 = Theta1;
+reg_grad_theta1(:, 1) = 0;
+reg_grad_theta1 = reg_grad_theta1 * lambda / m
+
+Theta2_grad = (delta3' * a2) / m + reg_grad_theta2;
+Theta1_grad = (delta2_only_val' * a1) / m + reg_grad_theta1;
 
 
 % J defenition

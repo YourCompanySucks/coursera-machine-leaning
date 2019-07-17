@@ -169,7 +169,7 @@ fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = %f): %f ' ...
          '\n(for lambda = 3, this value should be about 0.576051)\n\n'], lambda, debug_J);
 
 fprintf('Program paused. Press enter to continue.\n');
-% pause;
+pause;
 
 
 %% =================== Part 8: Training NN ===================
