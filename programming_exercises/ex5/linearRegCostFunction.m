@@ -27,7 +27,7 @@ J = sum((hypothesis - y) .^ 2) / (2 * m);
 
 theta(1,:) = 0;
 
-penalty = sum(theta * lambda / (2 * m));
+penalty = sum((theta .^ 2) * lambda / (2 * m));
 
 J = J + penalty;
 
