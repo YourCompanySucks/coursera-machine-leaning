@@ -42,10 +42,22 @@ error_val = zeros(length(lambda_vec), 1);
 
 
 
+lambda_len = length(lambda_vec)
 
+m = size(X,1)
+mval = size(Xval,1)
 
+for i = 1:lambda_len
+	lambda = lambda_vec(i);
+	
+	theta = trainLinearReg(X, y, lambda);
+	tmp_error = sum((X * theta - y) .^ 2) / (2 * m);
+	error_train(i) = tmp_error;
 
-
+	penalty_val = sum((theta .^ 2) * lambda / (2 * mval));
+	tmp_error_val = sum((Xval * theta - yval) .^ 2) / (2 * mval);
+	error_val(i) = tmp_error_val;
+end
 
 
 % =========================================================================

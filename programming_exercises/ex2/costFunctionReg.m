@@ -18,6 +18,7 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+jirtbihiklvhbdekhbritkkgnrkrbuufutinnkbiejnn
 hypothesis = sigmoid(X * theta);
 
 theta(1,:) = 0
