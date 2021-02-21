@@ -62,22 +62,65 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1.3 Feedforward and cost functions()
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+a_1 = X ;
 
+a_1 = [ones(m, 1) a_1];
+z_2 = a_1 * Theta1' ;
+a_2 = sigmoid(z_2) ;
 
+a_2 = [ones(m, 1) a_2];
+z_3 = a_2 * Theta2' ;
+h = sigmoid(z_3) ;
 
+y_k = y == 1:num_labels;
 
+%[maxVal, p] = max(h, [], 2);
 
+J = sum(sum((1/m) * ((-y_k) .* log(h) - (1 - y_k) .* log( 1 - h ))));
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1.4 regularized costFunction()
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+temp1 = Theta1;
+temp1 = [zeros(size(temp1, 1), 1) temp1(:,2:end)];
+temp2 = Theta2;
+temp2 = [zeros(size(temp2, 1), 1) temp2(:,2:end)];
 
+J = J + lambda / (2*m) * (sum(sum(temp1.^2)) + sum(sum(temp2.^2)));
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2 backpropagation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% [step 1]
+% 위에서 이미 구현함.
 
+% [step 2]
+delta_3 = h - y_k;
 
+% [step 3]
+delta_2 = delta_3 * Theta2 .* [ones(size(z_2, 1), 1) sigmoidGradient(z_2)];
+delta_2 = delta_2(:,2:end);
 
+% [step 4]
+% 삼각형 뭐라고 하는지 모르겠네, 삼각형도 델타인거 같은데.. 변수 이름 뭐지 젠장 ㅋ
+capital_delta_2 = delta_3' * a_2 ;
+capital_delta_1 = delta_2' * a_1 ;
 
+% [step 5]
+Theta1_grad = (1/m) * capital_delta_1;
+Theta2_grad = (1/m) * capital_delta_2;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2.5 regularized Neural Networks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Theta1_grad =  Theta1_grad + lambda/m * temp1 ;
+Theta2_grad =  Theta2_grad + lambda/m * temp2 ; 
 
 
 % -------------------------------------------------------------
