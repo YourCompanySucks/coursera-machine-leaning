@@ -12,9 +12,10 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+pos = find(y==1); neg = find(y == 0);
 
-
-
+plot(X(pos, 1), X(pos, 2), 'rx', 'LineWidth', 1, 'MarkerSize', 5);
+plot(X(neg, 1), X(neg, 2), 'ko', 'MarkerFaceColor', 'g', 'MarkerSize', 5);
 
 
 
