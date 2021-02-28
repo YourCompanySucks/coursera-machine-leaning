@@ -59,9 +59,24 @@ for i = 1:m
 
     [theta] = trainLinearReg(Xtrain, ytrain, lambda);
 
-    error_train(i)  = linearRegCostFunction(Xtrain, ytrain, theta, lambda) ;
-    error_val(i)    = linearRegCostFunction(Xval, yval, theta, lambda) ;
+    error_train(i)  = linearRegCostFunction(Xtrain, ytrain, theta, 0) ;
+    error_val(i)    = linearRegCostFunction(Xval, yval, theta, 0) ;
 end
+
+%for i = 1:m
+%
+%	tmp_x = X(1:i, :);
+%	tmp_y = y(1:i, :);
+%	tmp_theta = trainLinearReg(tmp_x, tmp_y, lambda);
+%
+%	tmp_error = sum((tmp_x * tmp_theta - tmp_y) .^ 2) / (2 * i);
+%	error_train(i) = tmp_error;
+%
+%	tmp_error_val = sum((Xval * tmp_theta - yval) .^ 2) / (2 * size(Xval, 1));
+%	error_val(i) = tmp_error_val;
+%
+%end
+
 
 % -------------------------------------------------------------
 
