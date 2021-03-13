@@ -63,19 +63,34 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% cost function
+a1 = [ones(m, 1) X];
+z2 = a1 * Theta1';
+
+a2 = [ones(size(z2), 1) sigmoid(z2)];
+z3 = a2 * Theta2';
+
+a3 = sigmoid(z3);
+
+
+Y = eye(num_labels)(y,:);
+
+reg = lambda / (2 * m) * (sum(sum(Theta1(:, 2:end) .^2)) + sum(sum(Theta2(:, 2:end) .^2)));
+
+J = (sum(sum((-Y .* log(a3) - (1 - Y) .* log(1 - a3))))) / m + reg;
 
 
 
+% backpropagation
 
+d3 = a3 - Y;
+d2 = (d3*Theta2)(:,2:end) .* sigmoidGradient(z2);
 
+D1 = d2'*a1;
+D2 = d3'*a2;
 
-
-
-
-
-
-
-
+Theta1_grad = D1 / m + lambda/m * [zeros(size(Theta1), 1) Theta1(:,2:end)];
+Theta2_grad = D2 / m + lambda/m * [zeros(size(Theta2) , 1) Theta2(:,2:end)];
 
 
 
