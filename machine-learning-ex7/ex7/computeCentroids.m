@@ -26,6 +26,12 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+for i = 1:K
+    %인덱스에 해당하는 값만 남긴다. 1 or 0
+    tmp = idx == i ;
+    C_k = nnz(tmp) ;
+    centroids(i,:) = 1/C_k * sum(X .* tmp) ;
+end
 
 
 
