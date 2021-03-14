@@ -22,7 +22,7 @@ idx = zeros(size(X,1), 1);
 %
 
 C = zeros(size(X, 1), K);
-for i = 1 : K
+for i = 1 : size(idx,1)
     for j = 1 : K
         C(i,j) = norm(X(i,:) - centroids(j,:))^2;
     end
@@ -30,6 +30,7 @@ end
 
 [val, idx_tran] = min(C') ;
 idx = idx_tran' ;
+
 
 % =============================================================
 
